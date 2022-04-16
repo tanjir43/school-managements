@@ -13,41 +13,41 @@ class ClassesController extends Controller
 
     public function index(): View
     {
-        return view('admins.classess.index', ['classess' => Classes::get()]);
+        return view('admins.classes.index', ['classess' => Classes::get()]);
     }
 
 
     public function create(): View
     {
-        return view('admins.classess.create');
+        return view('admins.classes.create');
     }
 
 
     public function store(Request $request): RedirectResponse
     {
-        return redirect()->route('classess.index');
+        return redirect()->route('classes.index');
     }
 
 
     public function show(Classes $classes): View
     {
-        return view('admins.classess.show', compact('classes'));
+        return view('admins.classes.show', compact('classes'));
     }
 
     public function edit(Classes $classes): View
     {
-        return view('admins.classess.edit', compact('classes'));
+        return view('admins.classes.edit', compact('classes'));
     }
 
 
     public function update(Request $request, Classes $classes): RedirectResponse
     {
-        return redirect()->route('classess.index');
+        return redirect()->route('classes.index');
     }
 
 
     public function destroy(Classes $classes): RedirectResponse
     {
-        return redirect()->route('classess.index');
+        return redirect()->route('classes.index');
     }
 }
