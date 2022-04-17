@@ -57,8 +57,12 @@
         <div class="content-wrap">
             <div class="main">
                 <div class="container-fluid">
-
                     <section id="main-content">
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $error )
+                                    <x-alerts.alert :error="$error"></x-alerts.alert>
+                            @endforeach    
+                        @endif
                     @yield('content')
                     </section>
                 </div>
@@ -100,6 +104,12 @@
             $(document).ready(function() {
                 $('#summernote').summernote();
             });
+          </script> 
+
+          <script>
+              setTimeout(function(){
+                $('#alert').slideUp();
+              },4000);
           </script>
         @stack('script')
 </body>

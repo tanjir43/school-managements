@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Level;
+use App\Models\Session;
 use App\Schoolmanagement\Service\Levels\LevelService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -29,7 +30,8 @@ class LevelController extends Controller
     {
         $this->validated($request);
         $levelService->storeLeveleData(new Level(), $request);
-        return redirect()->route('levels.index');
+        return redirect()->route('levels.index')->with('success','Level has been deleted successfully');
+
     }
 
 
@@ -53,7 +55,8 @@ class LevelController extends Controller
     public function destroy(Level $level, LevelService $levelService): RedirectResponse
     {
         $levelService->deleteLeveleData($level);
-        return redirect()->route('levels.index');
+        return redirect()->route('levels.index')->with('success','Level has been deleted successfully');
+
     }
 
     protected function validated($request){

@@ -5,8 +5,10 @@
 <div class="col-lg-12">
     <div class="card">
         <div class="card-header">
-            <a href="{{route('levels.create')}}"><i class="fa fa-plus-circle text-success">Add new level</i></a>
+            <h6>{{Str::ucfirst(request()->segment(3))}}</h6>
+            <a href="{{route('levels.create')}}"><i class="fa fa-plus-circle text-success pull-right">Add new level</i></a>
         </div>
+        <div class="card-body mt-2">
         <div class="bootstrap-data-table-panel">
             <div class="table-responsive">
                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
@@ -24,7 +26,7 @@
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$level->name}}</td>
-                            <td>{{$level->status}}</td>
+                            <td {{Helper::getStatusClass($level->status)}}>{{Helper::getStatusValue($level->status)}}</td>
                             <td>{{Str::limit($level->description, 50, '...')}}</td>
                             <td>
                                 <div class="btn-group">
@@ -43,7 +45,8 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+         </div>
+       </div>
     </div>
     <!-- /# card -->
 </div>

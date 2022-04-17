@@ -25,9 +25,15 @@
   </div>
 
   @push('script')
-      <script>
+      {{-- <script>
           $('.btnDelete').on('click', function(){
             $('.formDelete').attr('action',$(this).data('url'))
           });
+      </script> --}}
+
+      <script>
+        $('.btnDelete').on('click',function(){
+          $('.formDelete').attr('action',$(this).data('url'))
+        });
       </script>
   @endpush

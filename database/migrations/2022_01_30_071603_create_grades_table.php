@@ -15,9 +15,12 @@ class CreateGradesTable extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('level_id');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
-            $table->boolean('status')->default(true);  
+            $table->boolean('status')->default(true);
+            
+            $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');
             $table->timestamps();
         });
     }
