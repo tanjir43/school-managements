@@ -8,7 +8,9 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-validation">
-                    <form class="form-valide" action="#" method="post">
+                    <form class="form-valide" action="{{route('levels.store')}}" method="post">
+                      
+                        @csrf
                         @include('admins.levels.field')
                     </form>
                 </div>

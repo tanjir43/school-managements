@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Level;
+use App\Schoolmanagement\Service\Levels\LevelService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ class LevelController extends Controller
 
     public function index(): View
     {
+       
         return view('admins.levels.index', ['levels' => Level::get()]);
     }
 
@@ -23,8 +25,10 @@ class LevelController extends Controller
     }
 
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request , LevelService $levelService): RedirectResponse
     {
+        $this->validated($request);
+        $levelService->storeLeveleData(new Level(), $request);
         return redirect()->route('levels.index');
     }
 
@@ -46,8 +50,17 @@ class LevelController extends Controller
     }
 
 
-    public function destroy(Level $level): RedirectResponse
+    public function destroy(Level $level, LevelService $levelService): RedirectResponse
     {
+        $levelService->deleteLeveleData($level);
         return redirect()->route('levels.index');
+    }
+
+    protected function validated($request){
+        return $this->validate($request,[
+            'name'      => 'required|max:100', 
+            'status'    => 'required|min:1',
+            'description' => 'nullable|max:200'
+        ]);
     }
 }
