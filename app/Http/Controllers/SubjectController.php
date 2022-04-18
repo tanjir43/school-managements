@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subject;
+use App\Schoolmanagement\Service\Subjects\SubjectService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,9 +24,13 @@ class SubjectController extends Controller
     }
 
 
-    public function store(Request $request): RedirectResponse
+
+
+    public function store(Request $request, SubjectService  $subjectService): RedirectResponse
     {
-        return redirect()->route('subjects.index');
+        $subjectService->storeSubjectData(new Subject(), $request);
+        return redirect()->route('subjects.index')->with('success','Subjects has been added successfully');
+
     }
 
 
@@ -46,8 +51,23 @@ class SubjectController extends Controller
     }
 
 
-    public function destroy(Subject $subject): RedirectResponse
+
+    public function destroy(Subject $subject, SubjectService  $subjectService): RedirectResponse
     {
-        return redirect()->route('subjects.index');
+        $subjectService->deleteSubjectData($subject);
+        return redirect()->route('subjects.index')->with('success','Subjects has been deleted successfully');
+
+    }
+
+    protected function validated($request){
+        return $this->validate($request,[
+            'name'      => 'required|max:100', 
+            'status'    => 'required|min:1',
+            'code'      => 'nullable',
+            'hour'      => 'required|integer',
+            'credit'    => 'required|integer',
+
+
+        ]);
     }
 }

@@ -14,10 +14,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-validation">
-                    <form class="form-valide" action="{{route('subjects.store')}}" method="post">
-                      <input type="hidden" name="edit_id" value="{{$subject->id}}">
+                    <form class="form-valide" action="{{route('shifts.store')}}" method="post">
+                      <input type="hidden" name="edit_id" value="{{$shift->id}}">
                         @csrf
-                        @include('admins.subjects.field')
+                        @include('admins.shifts.field')
                     </form>
                 </div>
             </div>

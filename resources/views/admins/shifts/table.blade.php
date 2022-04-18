@@ -6,7 +6,7 @@
     <div class="card">
         <div class="card-header">
             <h6>{{Str::ucfirst(request()->segment(3))}}</h6>
-            <a href="{{route('subjects.create')}}"><i class="fa fa-plus-circle text-success pull-right">Add new subject</i></a>
+            <a href="{{route('shifts.create')}}"><i class="fa fa-plus-circle text-success pull-right">Add new shifts</i></a>
         </div>
         <div class="card-body mt-2">
         <div class="bootstrap-data-table-panel">
@@ -16,45 +16,32 @@
                         <tr>
                             <th>SL no</th>
                             <th>Name</th>
-                            <th>Code</th>
-                            <th>Credit</th>
-                            <th>Hour</th>
-                            <th>Assignment %</th>
-                            <th>Final %</th>
                             <th>status</th>
+                            <th>code</th>
                             <th>action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($subjects as  $subject)
+                        @foreach ($shifts as  $shift)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$subject->name}}</td>
-                            <td>{{$subject->code}}</td>
-                            <td>{{$subject->credit}}</td>
-                            <td>{{$subject->hour}}</td>
-                            <td>{{$subject->assignment_percentage ?? 0}}</td>
-                            <td>{{$subject->final_percentage ?? 0}}</td>
-
-                            <td {{Helper::getStatusClass($subject->status)}}>{{Helper::getStatusValue($subject->status)}}</td>
+                            <td>{{$shift->name}}</td>
+                            <td {{Helper::getStatusClass($shift->status)}}>{{Helper::getStatusValue($shift->status)}}</td>
+                            <td>{{$shift->code}}</td>
                             <td>
                                 <div class="btn-group">
-
-                                    <a class="btn btn-success btn-flat  addScoreBtn" href="#addScoreModal"
-                                    data-toggle="modal" title="score %" data-id="{{ $subject->id }}" data-subject="{{$subject->name}}">
-                                    <i class="fa fa-plus"></i></a>
-
-                                    <a class="btn btn-default btn-flat ml-2" href="{{route('subjects.edit', $subject->id)}}"><i class="fa fa-edit"></i></a>
-
-                                     <a class="btn btn-danger btn-flat ml-2 btnDelete" href="#DeleteConfirmation"
-                                     data-toggle="modal" data-url="{{route('subjects.destroy' ,$subject->id)}}">
+                                    <a class="btn btn-default btn-flat" href="{{route('shifts.edit', $shift->id)}}"><i class="fa fa-edit"></i></a>
+                                   
+                                    <a class="btn btn-danger btn-flat ml-2 btnDelete" href="#DeleteConfirmation"
+                                     data-toggle="modal" data-url="{{route('shifts.destroy' ,$shift->id)}}">
                                      <i class="fa fa-trash"></i></a>
 
                                 </div>
                             </td>
                         </tr>
                         @endforeach
-                                              
+                        
+                       
                     </tbody>
                 </table>
             </div>
@@ -63,8 +50,7 @@
     </div>
     <!-- /# card -->
 </div>
-<x-modals.delete :title="'Subject'"></x-modals.delete>
-<x-modals.addScores></x-modals>
+<x-modals.delete :title="'Shift'"></x-modals.delete>
 
 
 @push('script')

@@ -3,29 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classes;
+use App\Models\Grade;
+use App\Schoolmanagement\Service\Classes\ClassService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-
 class ClassesController extends Controller
 {
 
-    public function index(): View
+    public function index(ClassService $classService): View
     {
-        return view('admins.classes.index', ['classess' => Classes::get()]);
+        return view('admins.classes.index', ['classes' => $classService->getClassData(new Classes())]
+  
+    );
     }
-
-
+    // ['classes' => Classes::get()]
     public function create(): View
     {
-        return view('admins.classes.create');
+        return view('admins.classes.create',['grades' => Grade::all()]);
     }
 
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request , ClassService $classService): RedirectResponse
     {
-        return redirect()->route('classes.index');
+        $this->validated($request);
+        $classService->storeClassData(new Classes() , $request);
+        return redirect()->route('classes.index')->with('success', 'Class has been created successfully');
     }
 
 
@@ -34,9 +38,9 @@ class ClassesController extends Controller
         return view('admins.classes.show', compact('classes'));
     }
 
-    public function edit(Classes $classes): View
+    public function edit($id ,Classes $classes): View
     {
-        return view('admins.classes.edit', compact('classes'));
+        return view('admins.classes.edit', ['class'=>Classes::find($id) , 'grades' =>Grade::all()]);
     }
 
 
@@ -46,8 +50,19 @@ class ClassesController extends Controller
     }
 
 
-    public function destroy(Classes $classes): RedirectResponse
+    public function destroy($id, Classes $classes, ClassService $classService): RedirectResponse
     {
-        return redirect()->route('classes.index');
+        $classService->deleteClassData(Classes::find($id));
+        return redirect()->route('classes.index')->with('success', 'Class data has been deleted successfully');
+    }
+
+    protected function validated($request){
+        return $this->validate($request,[
+            'name'      => 'required|max:100', 
+            'status'    => 'required|min:1',
+            'grade_id'  => 'required|min:1',
+            'description' => 'nullable'
+        ]);
     }
 }
+

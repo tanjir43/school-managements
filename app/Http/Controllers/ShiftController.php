@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shift;
+use App\Schoolmanagement\Service\Shifts\ShiftService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,9 +24,11 @@ class ShiftController extends Controller
     }
 
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request , ShiftService $shiftService): RedirectResponse
     {
-        return redirect()->route('shifts.index');
+        $this->validated($request);
+        $shiftService->storeShiftData(new Shift(),$request);
+        return redirect()->route('shifts.index')->with('success','Shift has been added successfully');
     }
 
 
@@ -46,8 +49,18 @@ class ShiftController extends Controller
     }
 
 
-    public function destroy(Shift $shift): RedirectResponse
+    public function destroy(Shift $shift, ShiftService  $shiftService): RedirectResponse
     {
-        return redirect()->route('shifts.index');
+        $shiftService->deleteShiftData($shift);
+        return redirect()->route('shifts.index')->with('success','Shift has been deleted successfully');
+
+    }
+
+    protected function validated($request){
+        return $this->validate($request,[
+            'name'      => 'required|max:100', 
+            'status'    => 'required|min:1',
+            'code'      => 'nullable'
+        ]);
     }
 }

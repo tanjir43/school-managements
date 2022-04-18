@@ -8,10 +8,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-validation">
-                    <form class="form-valide" action="{{route('subjects.store')}}" method="post">
+                    <form class="form-valide" action="{{route('shifts.store')}}" method="post">
                       
                         @csrf
-                        @include('admins.subjects.field')
+                        @include('admins.shifts.field')
                     </form>
                 </div>
             </div>

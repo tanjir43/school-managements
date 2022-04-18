@@ -17,8 +17,9 @@ class CreateClassesTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('code')->nullable();
-            $table->foreignId('grade_id')->nullable();
+            $table->unsignedBigInteger('grade_id')->nullable();
             $table->boolean('status')->default(true);
+            $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -26,10 +26,10 @@
                         @foreach ($grades as  $grade)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$grade->level_id}}</td>
+                            <td>{{$grade->level->name}}</td>
                             <td>{{$grade->name}}</td>
                             <td {{Helper::getStatusClass($grade->status)}}>{{Helper::getStatusValue($grade->status)}}</td>
-                            <td>{{Str::limit($grade->description, 50, '...')}}</td>
+                            <td>{!!Str::limit($grade->description, 50, '...')!!}</td>
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-default btn-flat" href="{{route('grades.edit', $grade->id)}}"><i class="fa fa-edit"></i></a>
