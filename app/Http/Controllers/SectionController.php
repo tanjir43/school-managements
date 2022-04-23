@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSectionRequest;
 use App\Models\Section;
+use App\Schoolmanagement\Service\Sections\SectionService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,9 +25,11 @@ class SectionController extends Controller
     }
 
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreSectionRequest $request, SectionService $sectionService): RedirectResponse
     {
-        return redirect()->route('sections.index');
+//        $this->validated($request);
+        $sectionService->storeSectionData(new Section(), $request);
+        return redirect()->route('sections.index')->with('success','Sections has been added successfully');
     }
 
 
@@ -46,8 +50,16 @@ class SectionController extends Controller
     }
 
 
-    public function destroy(Section $section): RedirectResponse
+    public function destroy(Section $section, SectionService $sectionService): RedirectResponse
     {
-        return redirect()->route('sections.index');
+        $sectionService->deleteSectionData($section);
+        return redirect()->route('sections.index')->with('success','Sections has been deleted successfully');
+
     }
+
+//    protected function validated($request){
+//        return $this->validate($request,[
+//
+//        ]);
+//    }
 }

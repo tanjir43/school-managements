@@ -49,7 +49,7 @@ class ShiftController extends Controller
     }
 
 
-    public function destroy(Shift $shift, ShiftService  $shiftService): RedirectResponse
+    public function destroy(Shift $shift, ShiftService $shiftService): RedirectResponse
     {
         $shiftService->deleteShiftData($shift);
         return redirect()->route('shifts.index')->with('success','Shift has been deleted successfully');
@@ -58,7 +58,7 @@ class ShiftController extends Controller
 
     protected function validated($request){
         return $this->validate($request,[
-            'name'      => 'required|max:100', 
+            'name'      => 'required|max:100',
             'status'    => 'required|min:1',
             'code'      => 'nullable'
         ]);

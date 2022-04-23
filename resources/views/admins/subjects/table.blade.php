@@ -54,7 +54,7 @@
                             </td>
                         </tr>
                         @endforeach
-                                              
+
                     </tbody>
                 </table>
             </div>
@@ -63,8 +63,7 @@
     </div>
     <!-- /# card -->
 </div>
-<x-modals.delete :title="'Subject'"></x-modals.delete>
-<x-modals.addScores></x-modals>
+<x-Modals.delete :title="'Subject'"></x-Modals.delete>
 
 
 @push('script')

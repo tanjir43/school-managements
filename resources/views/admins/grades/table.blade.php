@@ -33,7 +33,7 @@
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-default btn-flat" href="{{route('grades.edit', $grade->id)}}"><i class="fa fa-edit"></i></a>
-                                   
+
                                     <a class="btn btn-danger btn-flat ml-2 btnDelete" href="#DeleteConfirmation"
                                      data-toggle="modal" data-url="{{route('grades.destroy' ,$grade->id)}}">
                                      <i class="fa fa-trash"></i></a>
@@ -42,8 +42,8 @@
                             </td>
                         </tr>
                         @endforeach
-                        
-                       
+
+
                     </tbody>
                 </table>
             </div>
@@ -52,7 +52,7 @@
     </div>
     <!-- /# card -->
 </div>
-<x-modals.delete :title="'Grade'"></x-modals.delete>
+<x-Modals.delete :title="'Grade'"></x-Modals.delete>
 
 
 @push('script')
