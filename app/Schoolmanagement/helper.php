@@ -3,6 +3,14 @@
 
 class Helper {
 
+    public static function getIsCurrentSession(){
+        return [
+            '' => 'Select current Session',
+            constCurrentSession::Yes   => "Yes",
+            constCurrentSession::No    => "No"
+        ];
+    }
+
     public static function getStatus(){
         return [
             '' => 'Select Status',
@@ -25,7 +33,7 @@ class Helper {
             return "badge badge-success";
             break;
         }
-    } 
+    }
 
     public static function getStatusValue($status){
         switch($status){
@@ -44,6 +52,6 @@ class Helper {
     }
 
     public static function getSelectedValue($key , $value){
-        return $key == $value ? 'selected' : ''; 
+        return $key == $value ? 'selected' : '';
     }
 }

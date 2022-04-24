@@ -27,7 +27,6 @@ class SectionController extends Controller
 
     public function store(StoreSectionRequest $request, SectionService $sectionService): RedirectResponse
     {
-//        $this->validated($request);
         $sectionService->storeSectionData(new Section(), $request);
         return redirect()->route('sections.index')->with('success','Sections has been added successfully');
     }
@@ -57,9 +56,5 @@ class SectionController extends Controller
 
     }
 
-//    protected function validated($request){
-//        return $this->validate($request,[
-//
-//        ]);
-//    }
+
 }

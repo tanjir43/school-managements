@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDayRequest;
+use App\Http\Requests\StoreTimeRequest;
 use App\Models\Day;
+use App\Schoolmanagement\Service\Days\DayService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,9 +26,10 @@ class DayController extends Controller
     }
 
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreDayRequest  $request , DayService  $dayService): RedirectResponse
     {
-        return redirect()->route('days.index');
+        $dayService->storeDayData(new Day(), $request);
+        return redirect()->route('days.index')->with('success','Day has been added successfully');
     }
 
 
@@ -46,8 +50,9 @@ class DayController extends Controller
     }
 
 
-    public function destroy(Day $day): RedirectResponse
+    public function destroy(Day $day, DayService  $dayService): RedirectResponse
     {
-        return redirect()->route('days.index');
+        $dayService->deleteDayData($day);
+        return redirect()->route('days.index')->with('success','Day has been deleted successfully');
     }
 }

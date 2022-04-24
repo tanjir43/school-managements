@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSessionRequest;
 use App\Models\Session;
+use App\Schoolmanagement\Service\Sessions\SessionService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,9 +25,10 @@ class SessionController extends Controller
     }
 
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreSessionRequest $request , SessionService $sessionService): RedirectResponse
     {
-        return redirect()->route('sessions.index');
+        $sessionService->storeSessionData(new  Session(), $request);
+        return redirect()->route('sessions.index')->with('success','Sessions has been added successfully');
     }
 
 
@@ -46,8 +49,9 @@ class SessionController extends Controller
     }
 
 
-    public function destroy(Session $session): RedirectResponse
+    public function destroy(Session $session, SessionService  $sessionService): RedirectResponse
     {
-        return redirect()->route('sessions.index');
+    $sessionService->deleteSessionData($session);
+        return redirect()->route('sessions.index')->with('success','Sessions has been deleted successfully');
     }
 }

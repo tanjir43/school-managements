@@ -10,3 +10,7 @@ class constStatus{
      const Male   = 1;
      const Female = 0;
  }
+ class constCurrentSession{
+    const  Yes = 1;
+    const  No  = 0;
+ }

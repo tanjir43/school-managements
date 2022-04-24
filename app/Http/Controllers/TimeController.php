@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTimeRequest;
+use App\Models\Shift;
 use App\Models\Time;
+use App\Schoolmanagement\Service\Times\TimeSection;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,13 +22,14 @@ class TimeController extends Controller
 
     public function create(): View
     {
-        return view('admins.times.create');
+        return view('admins.times.create',['shifts' => Shift::get(['id','name'])]);
     }
 
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreTimeRequest $request, TimeSection $timeSection): RedirectResponse
     {
-        return redirect()->route('times.index');
+        $timeSection->storeTimeData(new Time(), $request);
+        return redirect()->route('times.index')->with('success','Times-slot has been added successfully');
     }
 
 
@@ -36,7 +40,7 @@ class TimeController extends Controller
 
     public function edit(Time $time): View
     {
-        return view('admins.times.edit', compact('time'));
+        return view('admins.times.edit',['time'=>$time ,'shifts' => Shift::get(['id','name'])]);
     }
 
 
@@ -46,8 +50,10 @@ class TimeController extends Controller
     }
 
 
-    public function destroy(Time $time): RedirectResponse
+    public function destroy(Time $time, TimeSection $timeSection): RedirectResponse
     {
-        return redirect()->route('times.index');
+        $timeSection->deleteTimeData($time);
+        return redirect()->route('times.index')->with('success','Times has been deleted successfully');
+
     }
 }

@@ -15,10 +15,9 @@ class CreateTimesTable extends Migration
     {
         Schema::create('times', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
             $table->string('code')->nullable();
             $table->string('start_from')->nullable();
-            $table->string('end-from')->nullable();
+            $table->string('end_from')->nullable();
             $table->boolean('status')->default(true);
             $table->foreignId('shift_id')->nullable();
             $table->timestamps();
