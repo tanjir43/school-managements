@@ -61,7 +61,7 @@
                         @if ($errors->any())
                             @foreach ($errors->all() as $error )
                                     <x-alerts.alert :error="$error"></x-alerts.alert>
-                            @endforeach    
+                            @endforeach
                         @endif
                     @yield('content')
                     </section>
@@ -98,13 +98,72 @@
         <script src="{{ asset('jambasangsang/assets/js/lib/owl-carousel/owl.carousel-init.js') }}"></script>
         <!-- scripit init-->
         <script src="{{ asset('jambasangsang/assets/js/dashboard2.js') }}"></script>
-
+            <script src="{{asset('js/global.js')}}"></script>
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-        <script>
+
+            <script>
+                //add more functionality here
+
+                function get_level_grades(level_id){
+                    $('#grade_id').empty();
+                    $('#grade_id').append($('<option>').text("Select Grade").attr('value',""));
+                    $.get("{{ route('grades.index')}}", {
+                        level_id:level_id
+                    }, function (data){
+                        $.each(data, function (i, value){
+                            $('#grade_id').append($('<option>').text(value.name).attr('value',value.id));
+                        })
+                    });
+                }
+
+                function get_grade_classes(grade_id){
+                    $('#class_id').empty();
+                    $('#class_id').append($('<option>').text("Select Class").attr('value',""));
+
+                    $.get("{{ route('classes.index') }}", {
+                        grade_id:grade_id
+                    }, function (data){
+                        $.each(data, function (index, value){
+                            $('#class_id').append($('<option>').text(value.name).attr("value",value.id));
+                        });
+                    });
+                }
+
+                function get_class_subjects(class_id){
+                    $('#subject_id').empty();
+                    $('#subject_id').append($('<option>').text('Select Subjects').attr('value',""));
+
+                    $.get("{{ route('subjects.index')}}", {
+                        class_id:class_id
+                    }, function (data){
+                        $.each(data, function (index, value){
+                            $('#subject_id').append($('<option>').text(value.subject.name).attr("value",value.subject.id));
+                        });
+                    });
+                }
+
+                function get_shift_times(shift_id){
+                    $('#time_id').empty();
+                    $('#time_id').append($('<option>').text('Select times').attr('value',""));
+
+                    $.get("{{ route('times.index')}}", {
+                        shift_id:shift_id
+                    }, function (data){
+                        $.each(data, function (index, value){
+                            $('#time_id').append($('<option>').text(value.start_from + ' to ' + value.end_from).attr("value",value.id));
+                        });
+                    });
+                }
+
+
+            </script>
+
+
+            <script>
             $(document).ready(function() {
                 $('#summernote').summernote();
             });
-          </script> 
+          </script>
 
           <script>
               setTimeout(function(){

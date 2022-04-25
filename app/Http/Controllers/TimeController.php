@@ -14,8 +14,11 @@ use Illuminate\Http\Request;
 class TimeController extends Controller
 {
 
-    public function index(): View
+    public function index(TimeSection $timeSection): View
     {
+        if (\request()->ajax()){
+            return $timeSection->getTimeData(new Time());
+        }
         return view('admins.times.index', ['times' => Time::get()]);
     }
 

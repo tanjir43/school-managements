@@ -1,10 +1,13 @@
-<?php 
+<?php
 
 namespace App\Schoolmanagement\Service\Grades;
 
 class GradeService{
 
     public function getGradeData($gradeModel){
+        if (request()->ajax()){
+            return $gradeModel::where('level_id',request()->level_id)->get();
+        }
         return $gradeModel::with('level:id,name')->get();
     }
 

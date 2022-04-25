@@ -15,4 +15,8 @@ class Grade extends Model
     public function level(){
         return $this->belongsTo(Level::class , 'level_id' ,'id');
     }
+
+    public function scopeGetActiveGrades($query){
+        return $query->where('status',\constStatus::Active)->get(['id','name']);
+    }
 }

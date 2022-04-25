@@ -12,7 +12,7 @@
                 <li><a href="app-event-calender.html"><i class="fa fa-users"></i> {{ __('Users') }} </a></li>
                 <li><a href="app-email.html"><i class="fa fa-graduation-cap"></i> {{ __('Admission') }}</a></li>
                 <li><a href="{{route('academics')}}"><i class="fa fa-pencil"></i> {{ __('Academic') }}</a></li>
-                <li><a href="app-widget-card.html"><i class="fa fa-clock-o"></i> {{ __('Class Routine') }}</a></li>
+                <li><a href="{{route('classRoutings.index')}}"><i class="fa fa-clock-o"></i> {{ __('Class Routine') }}</a></li>
                 <li class="label">{{ __('Features') }}</li>
                 <li><a href="app-profile.html"><i class="fa fa-book"></i> {{ __('Library') }}</a></li>
                 <li><a href="app-widget-card.html"><i class="fa fa-calendar"></i> {{ __('Attendance') }}</a></li>

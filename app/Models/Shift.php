@@ -11,4 +11,7 @@ class Shift extends Model
 
     protected $fillable = ['name' ,'status' ,'code'];
 
+    public function scopeGetActiveShifts($query){
+        return $query->where('status',\constStatus::Active)->get(['id','name']);
+    }
 }

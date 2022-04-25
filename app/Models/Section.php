@@ -10,4 +10,8 @@ class Section extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'status', 'code'];
+
+    public function scopeGetActiveSections($query){
+        return $query->where('status',\constStatus::Active)->get(['id','name']);
+    }
 }

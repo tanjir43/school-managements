@@ -9,6 +9,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TimeController;
+use App\Http\Controllers\ClassRoutingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,7 @@ Route::prefix('admin')->group(function(){
 
     Route::prefix('academics')->group(function(){
 
-        Route::view('/','admins.academics.index')->name('academics'); 
+        Route::view('/','admins.academics.index')->name('academics');
 
         Route::resource('/classes' , ClassesController::class);
         Route::resource('/grades'  , GradeController::class);
@@ -37,6 +38,8 @@ Route::prefix('admin')->group(function(){
         Route::resource('/sections', SectionController::class);
         Route::resource('/sessions', SessionController::class );
     });
+
+    Route::resource('/classRoutings',ClassRoutingController::class);
 
 });
 

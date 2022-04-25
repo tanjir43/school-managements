@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Schoolmanagement\Service\Classes;
 
@@ -6,6 +6,9 @@ use Illuminate\Support\Str;
 class ClassService{
 
     public function getClassData($classModel){
+        if (request()->ajax()){
+            return  $classModel::where('grade_id', request()->grade_id)->get(['id','name']);
+        }
         return $classModel::with('grade:id,name')->get();
     }
 

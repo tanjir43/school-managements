@@ -15,6 +15,9 @@ class GradeController extends Controller
 
     public function index(GradeService $gradeService): View
     {
+        if (\request()->ajax()){
+    return $gradeService->getGradeData(new Grade());
+        }
         return view('admins.grades.index', ['grades' => $gradeService->getGradeData(new Grade)]);
     }
 
@@ -51,14 +54,14 @@ class GradeController extends Controller
 
 
     public function destroy(Grade $grade , GradeService $gradeService): RedirectResponse
-    {   
+    {
         $gradeService->deleteGradeData($grade);
         return redirect()->route('grades.index')->with('success', 'Grade data has been deleted successfully');
     }
 
     protected function validated($request){
         return $this->validate($request,[
-            'name'      => 'required|max:100', 
+            'name'      => 'required|max:100',
             'status'    => 'required|min:1',
             'level_id'  => 'required|min:1',
             'description' => 'nullable|max:200'

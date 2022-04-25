@@ -7,6 +7,9 @@ use Illuminate\Support\Str;
 class TimeSection{
 
     public  function getTimeData($timeModel){
+        if (request()->ajax()){
+            return $timeModel::where('shift_id',request()->shift_id)->get(['id','start_from','end_from']);
+        }
     return $timeModel::with('shift:id,name')->get();
     }
 

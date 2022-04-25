@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LelGradeClassSubject;
+use App\Models\Level;
 use App\Models\Subject;
 use App\Schoolmanagement\Service\Subjects\SubjectService;
 use Illuminate\Contracts\View\View;
@@ -12,15 +14,18 @@ use Illuminate\Http\Request;
 class SubjectController extends Controller
 {
 
-    public function index(): View
+    public function index()
     {
-        return view('admins.subjects.index', ['subjects' => Subject::get()]);
+        if (\request()->ajax()){
+            return LelGradeClassSubject::with('subject:id,name')->where('class_id', \request()->class_id)->get();
+        }
+        return view('admins.subjects.index', ['subjects' => Subject::get(['subject_id'])]);
     }
 
 
     public function create(): View
     {
-        return view('admins.subjects.create');
+        return view('admins.subjects.create',['levels' => Level::getActiveLevels()]);
     }
 
 
@@ -61,7 +66,7 @@ class SubjectController extends Controller
 
     protected function validated($request){
         return $this->validate($request,[
-            'name'      => 'required|max:100', 
+            'name'      => 'required|max:100',
             'status'    => 'required|min:1',
             'code'      => 'nullable',
             'hour'      => 'required|integer',

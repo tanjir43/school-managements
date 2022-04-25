@@ -10,4 +10,8 @@ class Day extends Model
     use HasFactory;
 
     protected  $fillable = ['name','code','status'];
+
+    public function scopeGetActiveDays($query){
+        return $query->where('status',\constStatus::Active)->get(['id','name']);
+    }
 }

@@ -2,7 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classes;
 use App\Models\ClassRouting;
+use App\Models\Day;
+use App\Models\Grade;
+use App\Models\Level;
+use App\Models\Section;
+use App\Models\Session;
+use App\Models\Shift;
+use App\Models\Subject;
+use App\Models\Time;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,13 +22,25 @@ class ClassRoutingController extends Controller
 
     public function index(): View
     {
-        return view('admins.classRoutings.index', ['classRoutings' => ClassRouting::get()]);
+        return view('admins.class_routings.index', ['classRoutings' => ClassRouting::get()]);
     }
 
 
     public function create(): View
     {
-        return view('admins.classRoutings.create');
+        return view('admins.class_routings.create',
+        [
+            'levels' => Level::GetActiveLevels(),
+            'grades' => Grade::GetActiveGrades(),
+            'classes'=> Classes::GetActiveClasses(),
+            'days'   => Day::GetActiveDays(),
+            'sections' => Section::GetActiveSections(),
+            'shifts' => Shift::GetActiveShifts(),
+            'sessions' => Session::GetActiveSessions(),
+            'subjects' => Subject::GetActiveSubjects(),
+            'times'    => Time::GetActiveTimes(),
+        ]
+        );
     }
 
 
@@ -31,12 +52,12 @@ class ClassRoutingController extends Controller
 
     public function show(ClassRouting $classRouting): View
     {
-        return view('admins.classRoutings.show', compact('classRouting'));
+        return view('admins.class_routings.show', compact('classRouting'));
     }
 
     public function edit(ClassRouting $classRouting): View
     {
-        return view('admins.classRoutings.edit', compact('classRouting'));
+        return view('admins.class_routings.edit', compact('classRouting'));
     }
 
 

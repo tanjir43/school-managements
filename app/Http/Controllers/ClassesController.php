@@ -14,8 +14,11 @@ class ClassesController extends Controller
 
     public function index(ClassService $classService): View
     {
+        if (\request()->ajax()){
+            return $classService->getClassData(new Classes());
+        }
         return view('admins.classes.index', ['classes' => $classService->getClassData(new Classes())]
-  
+
     );
     }
     // ['classes' => Classes::get()]
@@ -58,7 +61,7 @@ class ClassesController extends Controller
 
     protected function validated($request){
         return $this->validate($request,[
-            'name'      => 'required|max:100', 
+            'name'      => 'required|max:100',
             'status'    => 'required|min:1',
             'grade_id'  => 'required|min:1',
             'description' => 'nullable'
